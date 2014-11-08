@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>The Shopping Stage</title>
+        <link rel="shortcut icon" href="resources/icon.png"/>
+        <link href="mobile/resources/mobile.css" rel="stylesheet" type="text/css">
+        <link href="mobile/resources/styles.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" charset="utf-8" src="mobile/api/jquery-1.10.2.js"></script>
+        <!--script type="text/javascript" charset="utf-8" src="api/cordova.js"></script!-->
+        <script type="text/javascript" charset="utf-8" src="mobile/api/jquery.mobile.js"></script>
+        <style type="text/css">
+            .ui-body-c, .ui-overlay-c { background:white; }
+            #page{position: relative;height:100%;width:100%;}
+        </style>
+    </head>
+    <body>
+        <div id="page" data-role="page" style="background-color: #ff0eaa;background-image: none;">
+            <table id="header" class="header">
+                <tr style="height: 70px;margin:0; padding:0;">
+                    <td style="height:70px;width:60px;margin:0; padding:0;text-align: left; vertical-align: middle;">
+                        <img id="logo" src="mobile/resources/icon_bn.png" alt="The Shopping Stage" style="cursor: pointer;width:50px;height:50px;text-align: left;margin-left: 10px;margin-top: 10px;"/>
+                    </td>
+                    <td style="height:70px;width:60px;margin:0; padding:0;text-align: right; vertical-align: middle;">
+                        <img id="btnmenu" src="resources/menu.png" alt="The Shopping Stage" style="cursor: pointer;float:left;height:50px;margin-left:-30px;display: none;" onclick="return showMenu();"/>
+                        <img id="btnbuy" src="resources/buy.png" alt="The Shopping Stage" style="cursor: pointer;height:50px;margin-right:10px;display: none;" onclick="return showChart();"/>
+                    </td>
+                </tr>
+            </table>
+            <div id="content" class="content" style="z-index:50;margin:0; margin-top: 70px; border-spacing: 0px;">
+                <div class="colorbackground"  id="colorbackground" style="height:100%;padding-top:20px;">
+                    <table style="width:80%;margin-left: auto;margin-right: auto;">
+                        <tr><td><button type="button" value="" onclick="document.location.replace('mobile/index.html');">Entrar</button></td></tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr><td style="font-weight: bold;color:white;">Descarga tu aplicación</td></tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr><td><button type="button" value="" onclick="document.location.replace('https://play.google.com/store/apps/details?id=com.seglan.shoppingstage');">Android</button></td></tr>
+                        <tr><td><button type="button" value="" onclick="document.location.replace('mobile/ios.html');">iPhone</button></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

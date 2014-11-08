@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <title>The Shopping Stage</title>
+        <link rel="shortcut icon" href="resources/icon.png"/>
+        <link href="resources/mobile.css" rel="stylesheet" type="text/css">
+        <link href="resources/styles.css" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body style="vertical-align: top;">
+        <div id="page" data-role="page">
+            <table id="header" class="header" style="display: none;">
+                <tr style="height: 70px;margin:0; padding:0;">
+                    <td style="height:70px;width:60px;margin:0; padding:0;text-align: left; vertical-align: middle;">
+                        <img id="logo" src="resources/icon_bn.png" alt="The Shopping Stage" style="cursor: pointer;width:50px;height:50px;text-align: left;margin-left: 10px;margin-top: 10px;"/>
+                    </td>
+                    <td style="height:70px;width:60px;margin:0; padding:0;text-align: right; vertical-align: middle;">
+                        <img id="btnmenu" src="resources/MENU_OK.svg" alt="The Shopping Stage" style="cursor: pointer;float:left;height:50px;margin-left:-30px;display: none;" onclick="return showMenu();"/>
+                        <img id="btnbuy" src="resources/CARRITO_OK.svg" alt="The Shopping Stage" style="cursor: pointer;height:50px;margin-right:10px;display: none;" onclick="return showChart();"/>
+                    </td>
+                </tr>
+            </table>
+            <div id="content" class="content" style="z-index:50;">
+                <img alt="The Shopping Stage" class="span" src="resources/span.png"/>
+            </div>
+            <div id="transition"  class="content" style="z-index:51;vertical-align: top;"></div>
+            <div id="menu" class="menu">
+                <table style="width:80%;margin-left: auto;margin-right: auto;">
+                    <tr><td><button type="button" value="" onclick="showMenu();
+                            showLive();">Pase en vivo</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showMenu();
+                            showEvent();">Pase completo</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showMenu();
+                            showMarcasmenu();">Nuestras marcas</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showMenu();
+                            showAccount();">Mi cuenta</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showMenu();
+                            showChart();">Mi carrito</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showMenu();
+                            showStreaming();">Streaming</button></td></tr>
+                </table>
+            </div>
+        </div>
+        <div id="streaming" style="display: none;">
+            <!--iframe width="320" height="240" src="http://www.youtube.com/embed/alsefa0qeZk" style="margin-top:40px;" allowfullscreen></iframe-->
+            <video id="stream" preload="auto" loop="loop" style="width:80%;padding-top:20px;">
+                <source src="data/streaming.webm" type='video/webm; codecs="vp8, vorbis"' />
+                <source src="data/streaming.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+                <source src="data/streaming.ogv" type='video/ogg; codecs="theora, vorbis"' />
+            </video>
+        </div>
+        <div id="loginPage" style="display: none;">
+            <div class="colorbackground"  id="colorbackground">
+                <table style="width:80%;margin-left: auto;margin-right: auto;padding-top: 20px;">
+                    <tr><td><input style="width:100%;" type="text" id="loginUser" value="" placeholder="Email"/></td></tr>
+                    <tr><td><input style="width:100%;" type="password" id="loginPassword" value="" placeholder="Contrase&ntilde;a"/></td></tr>
+                    <tr><td>&nbsp;</td></tr>
+                    <tr><td><button style="width:100%;" type="button" value="" name=""  onclick="login();" >Aceptar</button></td></tr>
+                    <tr><td>&nbsp;</td></tr>
+                    <tr><td><button style="width:100%;" type="button" value="" name="" onclick="showReminder();">¿Ha olvidado su contrase&ntilde;a?</button></td></tr>
+                    <tr><td><button style="width:100%;" type="button" value="" name="" onclick="showNewUser();">¿A&uacute;n no est&aacute; registrado?</button></td></tr>
+                </table>
+            </div>
+        </div>
+        <div id="reminderPage" style="display: none;">
+            <div class="colorbackground"  id="colorbackground">
+                <table style="width:80%;margin-left: auto;margin-right: auto;padding-top: 20px;">
+                    <tr><td colspan="2"><input style="width:80%;" type="text" id="reminderemail" value="" placeholder="Email"/></td></tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr>
+                        <td style="width:50%;"><button onclick="showLogin();">Volver</button></td>
+                        <td style="width:50%;"><button onclick="pwdReminder();">Solicitar</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="newuserPage" style="display: none;">
+            <div class="colorbackground"  id="colorbackground">
+                <table class="datatable">
+                    <tr>
+                        <td colspan="2"><input type="text" placeholder="Email" id="newemail" maxlength="50"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="password" id="newpwd" placeholder="Contrase&ntilde;a" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="password" id="newpwd2" placeholder="Confirme&nbsp;contrase&ntilde;a" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="text" id="newusername" placeholder="Nombre" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="text" id="newuserfname" placeholder="Apellidos" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <select id="newsexo" style="text-align: left;">
+                                <option value=" ">Sexo</option>
+                                <option value="M">Mujer</option>
+                                <option value="H">Hombre</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;color:white;">
+                            <select id="newedad" style="text-align: left;">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="text" id="newcp" placeholder="C&oacute;digo Postal" maxlength="6" onkeypress="return numericInput(event);"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="text" id="newpoblacion" placeholder="Poblaci&oacute;n" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="text" id="newprovincia" placeholder="Provincia" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <select id="newpais" style="text-align: left;">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="text" id="newtlf" placeholder="Tel&eacute;fono" maxlength="20" onkeypress="return numericInput(event);"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label><input type="checkbox" id="newpubli"/>Deseo recibir noticias y subscribirme al newsletter de The Shopping Stage.</label></td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr>
+                        <td style="width:50%;"><button onclick="showLogin();">Volver</button></td>
+                        <td style="width:50%;"><button onclick="newUser();">Guardar</button></td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                </table>
+            </div>
+        </div>
+        <div id="dlg" style="display:none;position: fixed;top:0;left:0;width:100%;height:100%;text-align: center;z-index:1000;vertical-align: middle;background-color:rgba(255,255,255,0.5)">
+            <table id="dialog" style="font-family: GeosansLight;background-color:white; position:fixed;top:20%;left:40%;width:300px;margin:0 auto;border:1px solid #6e193b;">
+                <!--tr><td><img src="resources/logo.png" alt="The Shopping Stage" style="width:100%;"/></td></tr-->
+                <tr><td style="text-align: center; background-color: #c0366a;font-weight: bold; color: white; "><h3 class="dlg-1"></h3></td></tr>
+                <tr><td style="text-align: center;"><p class="dlg-2"></p></td></tr>
+                <tr><td style="text-align: center;"><button class="dlg-do" style="width:100%;margin:auto;">Yes</button></td></tr>
+            </table>
+            <!--div style="position:absolute;top:20%;left:30%; width:40%;margin:0 auto; border:1px solid #6e193b;background-color: white;"-->
+        </div>        
+        <div id="dlg2" style="display:none;position: fixed;top:0;left:0;width:100%;height:100%;text-align: center;z-index:1000;vertical-align: middle;background-color:rgba(255,255,255,0.5)">
+            <table id="dialog2" style="font-family: GeosansLight;background-color:white; position:fixed;top:20%;left:40%;width:300px;margin:0 auto;border:1px solid #6e193b;">
+                <!--tr><td><img src="resources/logo.png" alt="The Shopping Stage" style="width:100%;"/></td></tr-->
+                <tr><td style="text-align: center; background-color: #c0366a;font-weight: bold; color: white; " colspan="2"><h3 class="dlg-1"></h3></td></tr>
+                <tr><td style="text-align: center;" colspan="2"><p class="dlg-2"></p></td></tr>
+                <tr><td style="text-align: center;width:50%;"><button class="dlg-cancel" style="width:100%;margin:auto;">Cancelar</button></td><td style="text-align: center;"><button class="dlg-do" style="width:100%;margin:auto;">Yes</button></td></tr>
+            </table>
+            <!--div style="position:absolute;top:20%;left:30%; width:40%;margin:0 auto; border:1px solid #6e193b;background-color: white;"-->
+        </div>        
+        <div id="spin" style="display:none;position: fixed;top:0;left:0;width:100%;height:100%;z-index:1000;text-align: center;vertical-align: middle;background-color:rgba(255,255,255,0.2)">
+            <img src="resources/spinner.gif" alt="The ShoppingStage" style="width:50px;position:fixed;top:100px;left:50%;margin-left: -25px;vertical-align: middle;text-align: center;"/>
+        </div>        
+        <div id="picPage" class="picpage">
+            <table id="picTable" style="background-color: white;border:1px solid #c0366a;position:absolute;top:0;left:0;width:50%;margin:0px; padding:0px;">
+                <tr><td onclick="closepic();" style="border-bottom:1px solid #c0366a;"><img src="resources/close.png" alt="The ShoppingStage" style="width:25px;float:left;"/><div id="pictitle" style="width:100%;padding-top:6px;"></div></td></tr>
+                <tr><td><img id="picview" src="resources/spinner.gif" alt="The ShoppingStage" style="width:100%;vertical-align: middle;"/></td></tr>
+            </table>
+        </div>        
+        <div id="mainPage" style="display:none">
+            <table id="main" class="prodbox" style="width:60%;">
+                <tr style="vertical-align: middle;">
+                    <td class="modeltitle" id="modeltitle"></td>
+                </tr>
+                <tr id="modelrow" style="width:80%;height:80%;">
+                    <td class="modelrow" onclick="//showpic(true);"><img id="model" src="resources/icon.png" alt="The Shopping Stage"  style="width:100%;vertical-align: middle;"></td>
+                </tr>
+            </table>
+            <table id="itemList" class="prodbuttons" style=" margin-top: 10px;border-spacing: 10px;">
+            </table>
+        </div>
+        <div id="productPage" style="display:none">
+            <div class="colorbackground" id="colorbackground">
+                <table id="prodDiv" style="vertical-align: top;width:90%;margin:auto;padding-top: 20px;" cellspacing="0" cellpadding="0">
+                    <tr style="vertical-align: top;">
+                        <td style="vertical-align: middle;width:50%;text-align: center;background-color: white;padding: 0;" id="prodimgcell" onclick="showpic(false);">
+                            <img id="prodimg" src="resources/icon.png" alt="Manual comunicacion" style="width:auto;height:auto;max-width: 100%;max-height: 100%;"/>
+                        </td>
+                        <td>
+                            <table style="text-align: left;padding-left: 5%;color:white;" id="prod_details">
+                                <tr>
+                                    <td style="font-weight: bold;" id="prodName"></td>
+                                </tr>
+                                <tr>
+                                    <td id="prodRef"></td>
+                                </tr>
+                                <tr>
+                                    <td><div id="prodPrize"></div></td>
+                                </tr>
+                                <tr>
+                                    <td><select style="float:right;width:100%;background-color: white;" id="prodColors"></select></td>
+                                </tr>
+                                <tr>
+                                    <td><select style="float:right;width:100%;background-color: white;" id="prodSizes"></select></td>
+                                </tr>
+
+                                <tr>
+
+                                    <td style="float:right;width:auto;">
+                                        <span>Añadir al carrito&nbsp;</span>
+                                        <img id="chart" src="resources/CARRITO_BLANCO.svg" alt="Añadir Carrito" style="cursor: pointer;height:40px;"  onclick="return addChart();"/>
+
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="vertical-align: top;width:50%;text-align: center;"> 
+                        <td style="vertical-align: middle;width:50%;">
+                            <img id="fav" alt="Favorito" style="cursor: pointer;width:40px;padding-top: 10px;padding-right: 15%;"  onclick="return addFav();"/>
+                            <img id="dislike" alt="No me gusta" style="cursor: pointer;width:40px;padding-top: 10px;padding-right: 15%;"  onclick="return addLike('1');"/>
+                            <img id="like" alt="Me gusta" style="cursor: pointer;width:40px;padding-top: 10px;padding-right: 15%;"  onclick="return addLike('0');"/>
+                           
+                            <img id="share" src="resources/COMPARTIR_BLANCO.svg" alt="Redes Sociales" style="cursor: pointer;width:40px;padding-top: 10px;"  onclick="return addShare();"/>
+                        </td>
+                        <td style="width:50%;text-align: center;">&nbsp;</td>
+                    </tr>
+                    <tr style="vertical-align: top;">
+                        <td colspan="2" style="vertical-align: top;text-align: center;padding-top: 20px;color:black;">
+
+                            <div class="expand" onclick="slide('descRow');">Descripci&oacute;n</div>
+                            <div id="descRow" class="expanded" style="width:90%;text-align: center;"></div>
+                            <div class="expand" onclick="slide('compRow');">Composici&oacute;n</div>
+                            <div id="compRow" class="expanded" style="width:90%;text-align: center;"></div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td style="float:right;width:auto;"><img id="chart" src="resources/ATRAS_BLANCO.svg" onclick="return showMain();" alt="Volver" style="cursor: pointer;height:50px;"/>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                </table>
+            </div>
+        </div>
+        <div id="eventPage" style="display:none;">
+            <table id="tablemodels" style="text-align: center;vertical-align: top;margin-top: 0px;">
+            </table>
+        </div>
+        <div id="chartPage" style="display:none;">
+            <div class="colorbackground"  id="colorbackground">
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                <table id="chartForm" style="text-align: center;vertical-align: top;padding-top: 2pt;width: 100%;height:100%;color:white;">
+                </table>
+                </form>
+            </div>
+            <!--<div style="position: fixed;bottom: 0px; width: 100%;"><button style="width: 80%;margin:auto;" onclick="confirmChart();">Confirmar</button></div>-->
+        </div>
+        <div id="buttonmenu" style="display:none;">
+            <div class="colorbackground"  id="colorbackground">
+                <table id="evts" style="text-align: center;vertical-align: top;margin: auto;width: 80%;padding-top: 20px;">
+                </table>
+
+                <!--<table style="width:80%;margin-left: auto;margin-right: auto;">
+                    <tr><td><button type="button" value="" onclick="showLive();">Pase en vivo</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showEvent();">Pase completo</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showMarcasmenu();">Nuestras marcas</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showAccount();">Mi cuenta</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showChart();">Mi carrito</button></td></tr>
+                    <tr><td><button type="button" value="" onclick="showStreaming();">Streaming</button></td></tr>
+                </table>-->
+
+            </div>
+        </div>
+        <div id="accountPage" style="display: none;">
+            <div class="colorbackground" id="colorbackground">
+                <table class="datatable">
+                    <tr style="vertical-align: top;">
+                        <td style="vertical-align: top;">
+                            <table style="width:100%" >
+                                <tr>
+                                    <td colspan="2"><button onclick="clearUser();">Cambiar de usuario</button></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-weight: bold;color:white;">Mi cuenta:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="text" value="" placeholder="email" id="editemail" maxlength="50" readonly/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="text" value="" id="editusername" placeholder="Nombre" maxlength="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="text" value="" id="edituserfname" placeholder="Apellidos" maxlength="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: left;">
+                                        <select id="editsexo" style="text-align: left;">
+                                            <option value=" ">Sexo</option>
+                                            <option value="M">Mujer</option>
+                                            <option value="H">Hombre</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: left;">
+                                        <select id="editedad" style="text-align: left;">
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <select id="editpais">
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="text" value="" id="editpoblacion" placeholder="Poblaci&oacute;n" maxlength="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="text" value="" id="editprovincia" placeholder="Provincia" maxlength="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="text" value="" id="editcp" placeholder="C&oacute;digo Postal" maxlength="6" onkeypress="return numericInput(event);"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="text" value="" id="edittlf" placeholder="Tel&eacute;fono" maxlength="20" onkeypress="return numericInput(event);"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><label><input type="checkbox" id="editpubli">Deseo recibir noticias y subscribirme al newsletter de The Shopping Stage.</label></td>
+                                </tr>
+                                <tr><td style="text-align:center;" colspan="2">&nbsp;</td></tr>
+                                <tr>
+                                    <td style="width:50%;"><button onclick="showMain();">Volver</button></td><td style="width:50%;"><button onclick="updateUser();">Guardar</button></td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td colspan="2">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-weight: bold;color:white;">Cambio&nbsp;de&nbsp;contrase&ntilde;a:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="password" id="currpass" placeholder="Contrase&ntilde;a&nbsp;actual" maxlength="50"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="password" id="newpass" placeholder="Contrase&ntilde;a&nbsp;nueva" maxlength="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="password" id="newpass2" placeholder="Confirme&nbsp;contrase&ntilde;a" maxlength="20"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;"><button onclick="showMain();">Volver</button></td><td style="width:50%;"><button onclick="changePwd();">Cambiar</button></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <script type="text/javascript" charset="utf-8" src="api/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="api/jquery.mobile.js"></script>
+        <script type="application/javascript" charset="utf-8" src="api/fastclick.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/android.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/home.js"></script>
+        <script type="text/javascript">
+                                        $(window).load(
+                                                function() {
+                                                   preload(['resources/ATRAS_BLANCO.svg', 'resources/MENU_OK.svg','resources/CARRITO_OK.svg','resources/ATRAS_NEGRO.svg', 'resources/CARRITO_BLANCO.svg', 'resources/COMPARTIR_BLANCO.svg', 'resources/COMPARTIR_NEGRO.svg', 'resources/FAVORITO_BLANCO.svg', 'resources/FAVORITO_NEGRO.svg', 'resources/MEGUSTA_BLANCO.svg', 'resources/MEGUSTA_NEGRO.svg', 'resources/NOMEGUSTA_BLANCO.svg', 'resources/NOMEGUSTA_NEGRO.svg', 'resources/MENU_BLANCO.svg', 'resources/MENU_NEGRO.svg'])
+                                                });
+                                        function preload(arrayOfImages) {
+                                            $(arrayOfImages).each(function() {
+                                                $('<img />').attr('src', this).appendTo('body').css('display', 'none');
+                                            });
+                                        }
+                                        window.addEventListener('load', function() {
+                                            new FastClick(document.body);
+                                        }, false);
+        </script>
+    </body>
+</html>

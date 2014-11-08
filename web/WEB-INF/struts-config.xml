@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+
+<struts-config>
+    <form-beans>
+    <form-bean name="login" type="com.seglan.shop.forms.login"/>
+    <form-bean name="edituser" type="com.seglan.shop.forms.edituser"/>
+    <form-bean name="editevent" type="com.seglan.shop.forms.editevent"/>
+    <form-bean name="editmodel" type="com.seglan.shop.forms.editmodel"/>
+    <form-bean name="editmarca" type="com.seglan.shop.forms.editmarca"/>
+    <form-bean name="editproduct" type="com.seglan.shop.forms.editproduct"/>
+    <form-bean name="editproductstock" type="com.seglan.shop.forms.editproductstock"/>
+    <form-bean name="changepass" type="com.seglan.shop.forms.changepass"/>
+    <form-bean name="delete" type="org.apache.struts.action.DynaActionForm"><form-property name="id" type="java.lang.String"/><form-property name="it" type="java.lang.String"/></form-bean>
+    <form-bean name="activation" type="org.apache.struts.action.DynaActionForm"><form-property name="id" type="java.lang.String"/></form-bean>
+    <form-bean name="control" type="com.seglan.shop.forms.control"/>
+    
+    
+    <form-bean name="mevent" type="com.seglan.shop.mobile.forms.mevent"/>
+    <form-bean name="mlogin" type="com.seglan.shop.mobile.forms.mlogin"/>
+    <form-bean name="mcurrentpase" type="com.seglan.shop.mobile.forms.mcurrentpase"/>
+    <form-bean name="mreminder" type="com.seglan.shop.mobile.forms.mreminder"/>
+    <form-bean name="mnewuser" type="com.seglan.shop.mobile.forms.mnewuser"/>
+    <form-bean name="medituser" type="com.seglan.shop.mobile.forms.medituser"/>
+    <form-bean name="mchangepass" type="com.seglan.shop.mobile.forms.mchangepass"/>
+    <form-bean name="confirmchart" type="com.seglan.shop.mobile.forms.confirmchart"/>
+    <form-bean name="addchart" type="com.seglan.shop.mobile.forms.addchart"/>
+    <form-bean name="getchart" type="com.seglan.shop.mobile.forms.getchart"/>
+    <form-bean name="deletechart" type="com.seglan.shop.mobile.forms.deletechart"/>
+    <form-bean name="updatecurrent" type="com.seglan.shop.mobile.forms.updatecurrent"/>
+    <form-bean name="addlike" type="com.seglan.shop.mobile.forms.addlike"/>
+    <form-bean name="addDislike" type="com.seglan.shop.mobile.forms.addlike"/>
+    <form-bean name="addfav" type="com.seglan.shop.mobile.forms.addfav"/>
+    <form-bean name="ipnhandler" type="com.seglan.shop.mobile.forms.ipnhandler"/>
+    </form-beans>
+    
+    <global-exceptions>
+    
+    </global-exceptions>
+
+    <global-forwards>
+        <forward name="welcome"  path="/Welcome.do"/>
+        <forward name="mobile"  path="/mobile/login.jsp" redirect="true"/>
+    </global-forwards>
+
+    <action-mappings>
+        <action input="/index.jsp" name="login" path="/login" scope="request" type="com.seglan.shop.actions.login"/>
+        <action input="/config.jsp" name="edituser" path="/edituser" scope="request" type="com.seglan.shop.actions.edituser"/>
+        <action input="/evt.jsp" name="editevent" path="/editevent" scope="request" type="com.seglan.shop.actions.editevent"/>
+        <action input="/mod.jsp" name="editmodel" path="/editmodel" scope="request" type="com.seglan.shop.actions.editmodel"/>
+        <action input="/mar.jsp" name="editmarca" path="/editmarca" scope="request" type="com.seglan.shop.actions.editmarca"/>
+        <action input="/pro.jsp" name="editproduct" path="/editproduct" scope="request" type="com.seglan.shop.actions.editproduct"/>
+        <action input="/pro.jsp" name="editproductstock" path="/editproductstock" scope="request" type="com.seglan.shop.actions.editproductstock"/>
+        <action input="/config.jsp" name="changepass" path="/changepass" scope="request" type="com.seglan.shop.actions.changepass"/>
+        <action path="/delete" name="delete" type="com.seglan.shop.actions.delete"/>
+        <action path="/activation" name="activation" type="com.seglan.shop.actions.activation"/>
+        <action input="/control.jsp" name="control" path="/control" scope="session" type="com.seglan.shop.actions.editproduct"/>
+        
+        <action input="/mobile/index.jsp" name="mevent" path="/mobile/mevent" scope="request" type="com.seglan.shop.mobile.actions.mevent"/>
+        <action input="/mobile/index.jsp" name="mlogin" path="/mobile/mlogin" scope="request" type="com.seglan.shop.mobile.actions.mlogin"/>
+        <action input="/mobile/index.jsp" name="mcurrentpase" path="/mobile/mcurrentpase" scope="request" type="com.seglan.shop.mobile.actions.mcurrentpase"/>
+        <action input="/mobile/index.jsp" name="mreminder" path="/mobile/mreminder" scope="request" type="com.seglan.shop.mobile.actions.mreminder"/>
+        <action input="/mobile/index.jsp" name="mnewuser" path="/mobile/mnewuser" scope="request" type="com.seglan.shop.mobile.actions.mnewuser"/>
+        <action input="/mobile/index.jsp" name="medituser" path="/mobile/medituser" scope="request" type="com.seglan.shop.mobile.actions.medituser"/>
+        <action input="/mobile/index.jsp" name="mchangepass" path="/mobile/mchangepass" scope="request" type="com.seglan.shop.mobile.actions.mchangepass"/>
+        <action input="/mobile/index.jsp" name="addchart" path="/mobile/addchart" scope="request" type="com.seglan.shop.mobile.actions.addchart"/>
+        <action input="/mobile/index.jsp" name="getchart" path="/mobile/getchart" scope="request" type="com.seglan.shop.mobile.actions.getchart"/>
+        <action input="/mobile/index.jsp" name="confirmchart" path="/mobile/confirmchart" scope="request" type="com.seglan.shop.mobile.actions.confirmchart"/>
+        <action input="/mobile/index.jsp" name="deletechart" path="/mobile/deletechart" scope="request" type="com.seglan.shop.mobile.actions.deletechart"/>
+        <action input="/mobile/index.jsp" name="updatecurrent" path="/mobile/updatecurrent" scope="request" type="com.seglan.shop.mobile.actions.updatecurrent"/>
+        <action input="/mobile/index.jsp" name="addlike" path="/mobile/addlike" scope="request" type="com.seglan.shop.mobile.actions.addlike"/>
+        <action input="/mobile/index.jsp" name="addfav" path="/mobile/addfav" scope="request" type="com.seglan.shop.mobile.actions.addfav"/>
+        <action input="/mobile/index.jsp" name="ipnhandler" path="/mobile/ipnhandler" scope="request" type="com.seglan.shop.paypal.PaypalIpnExample.IpnHandler"/>
+      
+    </action-mappings>
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+    <message-resources parameter="com/seglan/struts/ApplicationResource"/>    
+    
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+  
+</struts-config>

@@ -1,0 +1,182 @@
+/* 
+    Document   : styles
+    Created on : 13-sep-2013, 14:44:31
+    Author     : igaraizabal
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@media only screen and (max-device-width: 480px) 
+{
+    html,body {font-size:small;}
+}
+@font-face
+{
+    font-family: GeosansLight;
+    //src: url(ShoppingStageFont.otf);
+    src: url(GeosansLight.ttf);
+}
+
+@font-face
+{
+    font-family: GeosansLight;
+    //src: url(ShoppingStageFont.otf);
+    src: url(GeosansLight.ttf);
+    font-weight: bold;
+}
+
+root { 
+    display: block;
+}
+
+html {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+html,body {    height:100%;margin:0px; padding:0px;text-align:center;display:block;font-family: GeosansLight;}
+#page
+{
+    position: relative;
+    height:100%;
+    width:100%;
+    background: url(../resources/bk_lineas.png) no-repeat center center fixed; 
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size:cover;
+}
+bk{background:url(bk_lineas.png) repeat-y;background-size:cover;background-repeat:no-repeat;}
+input,textarea    {width: 100%;-webkit-border-radius: 5px;-moz-border-radius: 5px;border: 1px solid #F50087; }
+.pinkinput    {width: 100%;-webkit-border-radius: 5px;-moz-border-radius: 5px;border: 1px solid #F50087; }
+.header2{height:50px;background-image:url('logo_bk.png');margin:0px; padding:0px;background-repeat:repeat-x;background-size: 50px 100%;text-align: right;border-spacing:0;border-collapse:collapse;}
+#title{text-align: center;font-weight: bold;}
+.itemList{width:100%;text-align: right;}
+.baseBtn{width: 33%;display:table-cell; text-align: center;vertical-align:middle;}
+.banner{vertical-align: bottom;}
+table{width: 100%;margin: 0;border-spacing:0;}
+select{width:100%;}
+.paseTitle{color:white;background-color: #F50087;font-weight: bold;font-size: larger;text-align: center;}
+.pinkbold{color:#6e193b;font-weight: bold;font-size: larger;}
+.pink{color:#e12d69;font-weight: bold;}
+.borderbottom{border-bottom:2pt solid #F50087;}
+
+.pedidopic{height:120px;width:20%;border-bottom:2pt solid #6e193b;vertical-align: middle;text-align: center;}
+.pedidodet{width:60%;border-bottom:2pt solid #6e193b;vertical-align: middle;}
+.pedidodel{width:20%;border-bottom:2pt solid #6e193b;vertical-align: middle;color:#6e193b;}
+.menu{position:fixed;width: 100%;padding-top: 30px;padding-bottom: 10px;background-color:  #F50087;top:-2000px;left:0;border-bottom: 2px solid black;z-index:50;}
+.header{position:fixed;top:0px;left:0px;height:70px;width:100%;margin:0; padding:0;z-index:1000;background-color: white; border: 0px; border-spacing: 0px;}
+.content{position:absolute;width: 100%;padding-top: 0px;margin:0; margin-top: 70px; border-spacing: 0px;}
+.modelrow{text-align: center;vertical-align: middle;background-color: white;margin:0;padding:0;border-collapse: collapse;}
+.modeltitle{text-align: center;background-color: #222;color:white;font-family: GeosansLight;padding:10px;}
+.prodbutton{background-color:#F50087;font-family: GeosansLight;color:white;padding:10px;cursor:pointer;border:1px solid black;outline:1px solid grey;}
+.prodbutton:active{background-color:#ff00ff;border:1px solid grey;outline:1px solid black;}
+.prodbuttons{width:100%;}
+.prodbox{border:2px solid #222;margin:auto; margin-top: 20px;}
+.picpage{display:none;position: fixed;top:0;left:0;width:100%;height:100%;z-index:1000;background-color:rgba(255,255,255,0.5);}
+.colorbackground{font-family: GeosansLight;width: 100%;height:100%; background-color: #F50087;}
+.botonmenutitle{
+    font-family: GeosansLight;
+    cursor:pointer; 
+    width:100%;
+    height:100%;
+    text-align: center;
+    margin-top:20px;
+    margin-bottom:20px;
+    min-height: 38px;
+    background-color: white;
+    
+}
+.botonmenutitle p{
+    padding-top:10px;
+    
+}
+.expand{
+    padding-top:2px;
+    padding-bottom:2px;
+    font-family: GeosansLight;
+    cursor:pointer; 
+    width:100%;
+    text-align: center;
+    margin-top:20px;
+    margin-bottom:20px;
+    background-color: white;
+    -moz-box-shadow: 4px 8px 10px #000000;
+    -webkit-box-shadow: 4px 8px 10px #000000;
+    box-shadow: 4px 8px 10px #000000;
+}
+.expand:active{background-color: #ff0067;}
+.expanded{font-family: GeosansLight;width:90%;text-align: center;color:white;margin:auto;margin-top:6px;margin-bottom:6px;}
+.dlg-1{}
+.dlg-2{}
+.dlg-do{}
+.datatable{width:80%;margin-left: auto;margin-right: auto;padding-top: 20px;}
+.span{width:100%;position:absolute; bottom: 0;left:0;}
+
+.divTable
+{
+    display:  table;
+    width:auto;
+    background-color:#eee;
+    border:1px solid  #666666;
+    border-spacing:5px;/*cellspacing:poor IE support for  this*/
+    /* border-collapse:separate;*/
+}
+
+.divRow
+{
+    display:table-row;
+    width:auto;
+
+}
+
+.divCell
+{
+    float:left;/*fix for  buggy browsers*/
+    display:table-column;
+    width:200px;
+    background-color:#ccc;
+
+}
+
+div.like{
+    float:right;
+    cursor: pointer;
+    height:40px;
+    width:40px;
+    background-size: 40px 40px;
+    background-image:url('LOGO-MEGUSTA.png');
+    margin:0px; 
+    padding:0px;
+}
+
+div.dislike{
+    float:right;
+    cursor: pointer;
+    height:40px;
+    width:40px;
+    background-size: 40px 40px;
+    background-image:url('LOGO-NOMEGUSTA.png');
+    margin:0px; 
+    padding:0px;
+}
+
+div.fav{
+    float:right;
+    cursor: pointer;
+    height:40px;
+    width:40px;
+    background-size: 40px 40px;
+    background-image:url('LOGO-FAVORITO.png');
+    margin:0px; 
+    padding:0px;
+}
+
+div.chart{
+    float:right;
+    cursor: pointer;
+    height:40px;
+    width:40px;
+    background-size: 40px 40px;
+    background-image:url('LOGO-CARRITO.png');
+    margin:0px; 
+    padding:0px;
+}

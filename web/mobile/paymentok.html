@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <title>The Shopping Stage</title>
+        <link rel="shortcut icon" href="resources/icon.png"/>
+        <link href="resources/mobile.css" rel="stylesheet" type="text/css">
+        <link href="resources/styles.css" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body style="vertical-align: top;">
+        
+            <table id="header" class="header" style="display: none;">
+                <tr style="height: 70px;margin:0; padding:0;">
+                    <td style="height:70px;width:60px;margin:0; padding:0;text-align: left; vertical-align: middle;">
+                        <img id="logo" src="resources/icon_bn.png" alt="The Shopping Stage" style="cursor: pointer;width:50px;height:50px;text-align: left;margin-left: 10px;margin-top: 10px;"/>
+                    </td>
+                    <td style="height:70px;width:60px;margin:0; padding:0;text-align: right; vertical-align: middle;">
+                        <img id="btnmenu" src="resources/MENU_NEGRO.svg" alt="The Shopping Stage" style="cursor: pointer;float:left;height:50px;margin-left:-30px;display: none;" onclick="return showMenu();"/>
+                        <img id="btnbuy" src="resources/CARRITO_NEGRO.svg" alt="The Shopping Stage" style="cursor: pointer;height:50px;margin-right:10px;display: none;" onclick="return showChart();"/>
+                    </td>
+                </tr>
+            </table>
+            
+            
+                <div class="colorbackground"  id="colorbackground">
+
+                    <div id="datospago" style="position: fixed;bottom: 0px; width: 100%;"></div>
+                </div>
+           
+        
+
+        <script type="text/javascript" charset="utf-8" src="api/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="api/jquery.mobile.js"></script>
+        <script type="application/javascript" charset="utf-8" src="api/fastclick.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/android.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/home.js"></script>
+        <script type="text/javascript">
+                            $(window).load(
+                                    function() {
+                                        preload(['resources/ATRAS_BLANCO.svg', 'resources/ATRAS_NEGRO.svg', 'resources/CARRITO_BLANCO.svg', 'resources/COMPARTIR_BLANCO.svg', 'resources/COMPARTIR_NEGRO.svg', 'resources/FAVORITO_BLANCO.svg', 'resources/FAVORITO_NEGRO.svg', 'resources/MEGUSTA_BLANCO.svg', 'resources/MEGUSTA_NEGRO.svg', 'resources/NOMEGUSTA_BLANCO.svg', 'resources/NOMEGUSTA_NEGRO.svg', 'resources/MENU_BLANCO.svg', 'resources/MENU_NEGRO.svg'])
+                                    });
+                            function preload(arrayOfImages) {
+                                $(arrayOfImages).each(function() {
+                                    $('<img />').attr('src', this).appendTo('body').css('display', 'none');
+                                });
+                            }
+                            
+
+                            
+                            var recibido = getParameterByName('user');
+                            var evento = getParameterByName('evento');
+                            var mensaje = recibido + " , del evento: " + evento;
+                            var mensajeDatos = '<button style="width: 80%;margin:auto;" onclick="confirmChart(\'' + recibido + '\',\'' + evento + '\');">Confirmar</button>';
+                            //var mensajeDatos = 'Pago correctamente realizado, <a href="javascript:confirmChart(\'' + recibido + '\',\'' + evento + '\');">confirmar carro</a>';
+                            $("#datospago").html(mensajeDatos);
+        </script>
+    </body>
+</html>

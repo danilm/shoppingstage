@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Recibiendo datos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+
+    </head>
+    <body>
+        <div id="contentido">Recibido, <span></span></div>
+
+        <script>
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            var recibido = getParameterByName('user');
+            var evento = getParameterByName('evento');
+            var mensaje = recibido + " , del evento: " + evento;
+            // document.querySelector('#contentido').innerHTML = mensaje;
+            document.getElementById("contentido").innerHTML = mensaje;
+
+        </script>
+    </body>
+</html>

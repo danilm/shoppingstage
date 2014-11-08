@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/shoppingstage">
+  <!--Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="3" maxIdle="3" maxWait="10000" name="jdbc/local" password="root" type="javax.sql.DataSource" url="jdbc:mysql://192.168.1.100:3306/shopstage" username="root"/-->
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="3" maxIdle="3" maxWait="10000" name="jdbc/local" password="igaraizabal" type="javax.sql.DataSource" url="jdbc:mysql://shoppingstage.net:3306/shoppin1_shoppingstage" username="shoppin1_seglan"/>
+</Context>
