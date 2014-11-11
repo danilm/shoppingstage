@@ -2,13 +2,13 @@
  * Paypal Button and Instant Payment Notification (IPN) Integration with Java
  * http://codeoftheday.blogspot.com/2013/07/paypal-button-and-instant-payment_6.html
  */
-package com.seglan.shop.paypal.PaypalIpnExample;
+package com.seglan.shop.paypal.PaypalIpn;
 
 /**
  * Model class to hold Paypal IPN Notification related information
  *
- * User: smhumayun
- * Date: 7/6/13
+ * User: danilm
+ * Date: 10/11/14
  * Time: 6:15 PM
  */
 public class IpnInfo {
@@ -25,6 +25,12 @@ public class IpnInfo {
     private String requestParams;
     private String error;
     private Long logTime;
+    private String invoiceNumber;
+    private String address;
+    private String zip;
+    private String payerId;
+    private String paymentDate;
+    
 
     public String getItemName() {
         return itemName;
@@ -122,6 +128,47 @@ public class IpnInfo {
         this.error = error;
     }
 
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getPayerId() {
+        return payerId;
+    }
+
+    public void setPayerId(String payerId) {
+        this.payerId = payerId;
+    }
+
+    public String getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    
     @Override
     public String toString() {
         return "txn_id = " + this.getTxnId()
@@ -133,6 +180,11 @@ public class IpnInfo {
                 + ", payment_amount = " + this.getPaymentAmount()
                 + ", payment_currency = " + this.getPaymentCurrency()
                 + ", receiver_email = " + this.getReceiverEmail()
+                + ", invoiceNumber = " + this.getInvoiceNumber()
+                + ", address = " + this.getAddress()
+                + ", zip = " + this.getZip()
+                + ", payerId = " + this.getPayerId()
+                + ", payment_date = " + this.getPaymentDate()
                 + ", request_params = " + this.getRequestParams()
                 + ", log_time = " + this.getLogTime()
                 + ", error = " + this.getError();

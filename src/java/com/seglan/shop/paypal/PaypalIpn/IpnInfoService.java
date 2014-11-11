@@ -2,7 +2,10 @@
  * Paypal Button and Instant Payment Notification (IPN) Integration with Java
  * http://codeoftheday.blogspot.com/2013/07/paypal-button-and-instant-payment_6.html
  */
-package com.seglan.shop.paypal.PaypalIpnExample;
+package com.seglan.shop.paypal.PaypalIpn;
+
+import com.seglan.shop.sourcecode.DataMethods;
+import com.seglan.shop.sourcecode.common;
 
 /**
  * Arbitrary service class to simulate the storage and retrieval of Paypal IPN Notification related information
@@ -19,10 +22,14 @@ public class IpnInfoService {
      * @param ipnInfo {@link IpnInfo}
      * @throws IpnException
      */
-    public void log (final IpnInfo ipnInfo) throws IpnException {
+    public int log (final IpnInfo ipnInfo) throws IpnException {
         /**
-         * Implementation...
+         * Save data to DDBB...
          */
+        java.sql.Connection conn = common.getConnection();
+        DataMethods DBM = new DataMethods(conn);
+        int result = DBM.addPaypal(ipnInfo);
+        return result;
     }
 
     /**

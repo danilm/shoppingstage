@@ -2,7 +2,7 @@
  * Paypal Button and Instant Payment Notification (IPN) Integration with Java
  * http://codeoftheday.blogspot.com/2013/07/paypal-button-and-instant-payment_6.html
  */
-package com.seglan.shop.paypal.PaypalIpnExample;
+package com.seglan.shop.paypal.PaypalIpn;
 
 /**
  * This class serves as a model to hold Paypal IPN Integration Configuration

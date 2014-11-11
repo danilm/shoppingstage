@@ -511,6 +511,13 @@ function getChart()
     return true;
 }
 
+function obtenerTimeStamp() {
+    if (!Date.now){
+        Date.now = function() { return new Date().getTime() ; };
+    } else {
+        return new Date().getTime() ;
+    }
+}
 /**
  * Funcion que se encarga de componer el carrito de la compra montando 
  * el formulario que luego será usado para plataformas de pago como paypal
@@ -522,18 +529,22 @@ function composeChart(chart)
     var pedidos = '';
     var total = 0.0;
     var contador = 1;
-    //pedidos += '<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">';
+    var invoiceNumber = obtenerTimeStamp(); 
     pedidos += '<input type="hidden" name="cmd" value="_cart">';
     pedidos += '<input type="hidden" name="upload" value="1">';
     pedidos += '<input type="hidden" name="bn" value="ShoppingStage_BuyNow_WPS_ES">';
-    pedidos += '<input type="hidden" name="business" value="dani.lopez@gmail.com">';
+    pedidos += '<input type="hidden" name="business" value="produccion@theshoppingstage.com">';
+    pedidos += '<input type="hidden" name="charset" value="UTF-8">';
+   
     pedidos += '<input type="hidden" name="currency_code" value="EUR">';
     pedidos += '<input name = "handling_cart" value = "0" type = "hidden">';
-   // pedidos += '<input name = "return" value = "http://www.shoppingstage.net/mobile/paymentok.html?user=' + user.id + '&evento=' + models[0].idEvento+ '" type = "hidden">';
-    pedidos += '<input name = "return" value = "http://www.shoppingstage.net/mobile/ipnhandler.do?" type = "hidden">';
+    pedidos += '<input name = "return" value = "http://81.44.98.75:8084/shoppingstage/mobile/paymentok.html?user=' + user.id + '&evento=' + models[0].idEvento+ '&invoice=' + invoiceNumber + '" type = "hidden">';
+    pedidos += '<input name = "notify_url" value = "http://81.44.98.75:8084/shoppingstage/mobile/ipnhandler.do" type = "hidden">';
+   
     pedidos += '<input name = "cbt" value = "Return to My Site" type = "hidden">';
     pedidos += '<input name = "cancel_return" value = "http://www.shoppingstage.net/mobile/cancelpayment.html" type = "hidden">';
     pedidos += '<input name = "custom" value = "" type = "hidden">';
+    pedidos += '<input name = "invoice" id= "invoice" value = "'+ invoiceNumber + '" type = "hidden">';
     for (var i = 0; i < chart.length; i++)
     {
         pedidos += '<tr><td style="height:120px;width:20%;border-bottom:2pt solid #ff0eaa;vertical-align: middle;text-align: center;background-color:white;"><img src="http://shoppingstage.net/events/' + models[0].idEvento + '/products/' + chart[i].idprod + '.jpg" style="width:auto;height:auto;max-width: 100%;max-height: 100%;"/></td>';
@@ -548,13 +559,12 @@ function composeChart(chart)
     }
 
     pedidos += '<tr style="width:100%;height:100%;vertical-align: middle;"><td style="align:left;width:100%;height:100%;vertical-align: middle;" colspan="3">Total: ' + total + '€</td></tr>';
-    //pedidos += '<tr style="width:100%;height:100%;vertical-align: middle;"><td style="width:100%;height:100%;vertical-align: middle;" colspan="3">Seleccione la forma de pago:</td></tr>';
+    pedidos += '<tr style="width:100%;height:100%;vertical-align: middle;"><td style="width:100%;height:100%;vertical-align: middle;" colspan="3">Seleccione la forma de pago:</td></tr>';
 
 
 
-   // pedidos += '<input type="image" height="62" width="31" src="http://www.paypal.com/es_XC/i/btn/x-click-but01.gif" name="submit" alt="PayPal secure payment!">';
-   // pedidos += '<img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >';
-    // pedidos += '</form>';
+    pedidos += '<table width=40% height=40px><tr><td style="width:120px;vertical-align: middle;">&nbsp;</td><td style="width:70px;height:31px;vertical-align: middle;"><input type="image" src="http://www.paypal.com/es_XC/i/btn/x-click-but01.gif" name="submit" alt="PayPal secure payment!"></td><td style="width:60%;vertical-align: middle;">&nbsp;</td></tr></table>';
+
     $("#chartForm").html(pedidos);
     $("#page").trigger("create");
 }

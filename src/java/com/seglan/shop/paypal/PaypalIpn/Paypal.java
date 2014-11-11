@@ -3,7 +3,7 @@
  * you are not allowed to modify, copy or using without author's permissions
  */
 
-package com.seglan.shop.paypal.PaypalIpnExample;
+package com.seglan.shop.paypal.PaypalIpn;
 
 /**
  *

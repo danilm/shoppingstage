@@ -5,9 +5,16 @@
 package com.seglan.shop.sourcecode;
 
 import com.seglan.shop.entities.*;
+import com.seglan.shop.paypal.PaypalIpn.IpnInfo;
 import java.sql.ResultSet;
 import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataMethods {
 
@@ -520,6 +527,48 @@ public class DataMethods {
             }
         } catch (Exception e) {
             result = -1;
+        }
+        return result;
+    }
+
+    public int addPaypal(IpnInfo ipnInfo) {
+        int result = -1;
+        try {
+            
+            boolean encontrado = false;
+            
+            String payment_date;
+            SimpleDateFormat from = new SimpleDateFormat("hh:mm:ss MMM dd, yyyy zzz");
+            SimpleDateFormat to = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = from.parse(ipnInfo.getPaymentDate());
+            payment_date = to.format(date);
+            try {
+                //En primer lugar compruebo si ya esa orden de compra estaba incluida en la BBDD
+                String SqlSt = "SELECT txn_id FROM paypalinvoices WHERE txn_id='" + ipnInfo.getTxnId() + "'";
+                ResultSet res = DBA.resultsetSQL(SqlSt);
+                if (res.next()) {
+                    encontrado = true;
+                }
+                
+                //Ahora o lo inserto o lo actualizo
+                if (encontrado){
+                    SqlSt = "UPDATE paypalinvoices SET payment_status = '" + ipnInfo.getPaymentStatus() +  "' WHERE txn_id= '" + ipnInfo.getTxnId() +"'";
+                    
+                } else {
+                    SqlSt = "INSERT INTO paypalinvoices (txn_id,invoice,payment_date,payer_id,payer_email,address,payment_status,address_zip,request) VALUES ('" + ipnInfo.getTxnId() + "','" + ipnInfo.getInvoiceNumber() + "','" + payment_date + "','" + ipnInfo.getPayerId() + "','" + ipnInfo.getPayerEmail() + "','" + ipnInfo.getAddress() + "','" + ipnInfo.getPaymentStatus() + "','" + ipnInfo.getZip() + "','" +ipnInfo.getRequestParams() +  "')";
+                    
+                }
+                if (DBA.executeSQL(SqlSt)) {
+                    result = 1;
+                } else {
+                    result = -1;
+                }
+            } catch (Exception e) {
+                result = -1;
+            }
+            return result;
+        } catch (ParseException ex) {
+            Logger.getLogger(DataMethods.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
     }

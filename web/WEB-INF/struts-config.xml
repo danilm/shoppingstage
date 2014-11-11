@@ -74,7 +74,7 @@
         <action input="/mobile/index.jsp" name="updatecurrent" path="/mobile/updatecurrent" scope="request" type="com.seglan.shop.mobile.actions.updatecurrent"/>
         <action input="/mobile/index.jsp" name="addlike" path="/mobile/addlike" scope="request" type="com.seglan.shop.mobile.actions.addlike"/>
         <action input="/mobile/index.jsp" name="addfav" path="/mobile/addfav" scope="request" type="com.seglan.shop.mobile.actions.addfav"/>
-        <action input="/mobile/index.jsp" name="ipnhandler" path="/mobile/ipnhandler" scope="request" type="com.seglan.shop.paypal.PaypalIpnExample.IpnHandler"/>
+        <action input="/mobile/index.jsp" name="ipnhandler" path="/mobile/ipnhandler" scope="request" type="com.seglan.shop.paypal.PaypalIpn.IpnHandler"/>
       
     </action-mappings>
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

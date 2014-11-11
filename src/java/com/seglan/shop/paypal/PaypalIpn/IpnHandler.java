@@ -2,8 +2,10 @@
  * Paypal Button and Instant Payment Notification (IPN) Integration with Java
  * http://codeoftheday.blogspot.com/2013/07/paypal-button-and-instant-payment_6.html
  */
-package com.seglan.shop.paypal.PaypalIpnExample;
+package com.seglan.shop.paypal.PaypalIpn;
 
+import com.seglan.shop.sourcecode.DataMethods;
+import com.seglan.shop.sourcecode.common;
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -32,7 +34,7 @@ public class IpnHandler extends org.apache.struts.action.Action
 {
     private Logger logger = Logger.getLogger(IpnHandler.class.getName()); 
     private IpnConfig ipnConfig;
-    private IpnInfoService ipnInfoService;
+    private IpnInfoService ipnInfoService = new IpnInfoService();
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -75,13 +77,15 @@ public class IpnHandler extends org.apache.struts.action.Action
             StringBuilder cmd = new StringBuilder("cmd=_notify-validate");
             String paramName;
             String paramValue;
+            logger.log(Level.INFO, "Charset={0}", request.getParameter("charset"));
             while (en.hasMoreElements()) {
                 paramName = (String) en.nextElement();
                 paramValue = request.getParameter(paramName);
                 cmd.append("&").append(paramName).append("=")
-                        .append(URLEncoder.encode(paramValue, request.getParameter("charset")));
+                        .append(URLEncoder.encode(paramValue, "UTF-8"));
             }
-
+            ipnConfig = new IpnConfig("https://www.sandbox.paypal.com/cgi-bin/webscr", "produccion@theshoppingstage.com", "", "EUR");
+            this.setIpnConfig(ipnConfig);
             //3. Post above command to Paypal IPN URL {@link IpnConfig#ipnUrl}
             URL u = new URL(this.getIpnConfig().getIpnUrl());
             HttpsURLConnection uc = (HttpsURLConnection) u.openConnection();
@@ -99,14 +103,19 @@ public class IpnHandler extends org.apache.struts.action.Action
 
             //5. Capture Paypal IPN information
             ipnInfo.setLogTime(System.currentTimeMillis());
-            ipnInfo.setItemName(request.getParameter("item_name"));
-            ipnInfo.setItemNumber(request.getParameter("item_number"));
+            ipnInfo.setItemName(request.getParameter("item_name1"));
+            ipnInfo.setItemNumber(request.getParameter("item_number1"));
             ipnInfo.setPaymentStatus(request.getParameter("payment_status"));
             ipnInfo.setPaymentAmount(request.getParameter("mc_gross"));
             ipnInfo.setPaymentCurrency(request.getParameter("mc_currency"));
             ipnInfo.setTxnId(request.getParameter("txn_id"));
             ipnInfo.setReceiverEmail(request.getParameter("receiver_email"));
             ipnInfo.setPayerEmail(request.getParameter("payer_email"));
+            ipnInfo.setInvoiceNumber(request.getParameter("invoice"));
+            ipnInfo.setAddress(request.getParameter("address_street"));
+            ipnInfo.setPayerId(request.getParameter("payer_id"));
+            ipnInfo.setZip(request.getParameter("address_zip"));
+            ipnInfo.setPaymentDate(request.getParameter("payment_date"));
             ipnInfo.setResponse(res);
             ipnInfo.setRequestParams(requestParams);
 
@@ -114,8 +123,8 @@ public class IpnHandler extends org.apache.struts.action.Action
             if (res.equals("VERIFIED")) {
 
                 //6.1. Check that paymentStatus=Completed
-                if(ipnInfo.getPaymentStatus() == null || !ipnInfo.getPaymentStatus().equalsIgnoreCase("COMPLETED"))
-                    ipnInfo.setError("payment_status IS NOT COMPLETED {" + ipnInfo.getPaymentStatus() + "}");
+               // if(ipnInfo.getPaymentStatus() == null || !ipnInfo.getPaymentStatus().equalsIgnoreCase("COMPLETED"))
+               //     ipnInfo.setError("payment_status IS NOT COMPLETED {" + ipnInfo.getPaymentStatus() + "}");
 
                 //6.2. Check that txnId has not been previously processed
                 IpnInfo oldIpnInfo = this.getIpnInfoService().getIpnInfo(ipnInfo.getTxnId());
@@ -128,32 +137,36 @@ public class IpnHandler extends org.apache.struts.action.Action
                             + " does not match with configured ipn email " + this.getIpnConfig().getReceiverEmail());
 
                 //6.4. Check that paymentAmount matches with configured {@link IpnConfig#paymentAmount}
-                if(Double.parseDouble(ipnInfo.getPaymentAmount()) != Double.parseDouble(this.getIpnConfig().getPaymentAmount()))
-                    ipnInfo.setError("payment amount mc_gross " + ipnInfo.getPaymentAmount()
-                            + " does not match with configured ipn amount " + this.getIpnConfig().getPaymentAmount());
+                //if(Double.parseDouble(ipnInfo.getPaymentAmount()) != Double.parseDouble(this.getIpnConfig().getPaymentAmount()))
+                //    ipnInfo.setError("payment amount mc_gross " + ipnInfo.getPaymentAmount()
+                //            + " does not match with configured ipn amount " + this.getIpnConfig().getPaymentAmount());
 
                 //6.5. Check that paymentCurrency matches with configured {@link IpnConfig#paymentCurrency}
-                if(!ipnInfo.getPaymentCurrency().equalsIgnoreCase(this.getIpnConfig().getPaymentCurrency()))
-                    ipnInfo.setError("payment currency mc_currency " + ipnInfo.getPaymentCurrency()
-                            + " does not match with configured ipn currency " + this.getIpnConfig().getPaymentCurrency());
+                //if(!ipnInfo.getPaymentCurrency().equalsIgnoreCase(this.getIpnConfig().getPaymentCurrency()))
+                //    ipnInfo.setError("payment currency mc_currency " + ipnInfo.getPaymentCurrency()
+                //            + " does not match with configured ipn currency " + this.getIpnConfig().getPaymentCurrency());
             }
             else
-                ipnInfo.setError("Inavlid response {" + res + "} expecting {VERIFIED}");
+                ipnInfo.setError("Invalid response {" + res + "} expecting {VERIFIED}");
 
             logger.info("ipnInfo = " + ipnInfo);
 
-            this.getIpnInfoService().log(ipnInfo);
-
+           java.sql.Connection conn = common.getConnection();
+           DataMethods DBM = new DataMethods(conn);
+           int result = DBM.addPaypal(ipnInfo);
+           if (result != 1) {
+               logger.log(Level.SEVERE, "Cannot save transaction");
+           }
+        
+           //     throw new IpnException(ipnInfo.getError());
             //7. In case of any failed validation checks, throw {@link IpnException}
-            if(ipnInfo.getError() != null)
-                throw new IpnException(ipnInfo.getError());
+           // if(ipnInfo.getError() != null)
+            //    throw new IpnException(ipnInfo.getError());
         }
         catch(Exception e)
         {
-            if(e instanceof IpnException)
-                throw (IpnException) e;
-            logger.log(Level.SEVERE, e.toString(), e);
-            throw new IpnException(e.toString());
+           logger.log(Level.SEVERE, e.toString(), e);
+           
         }
 
         //8. If all is well, return {@link IpnInfo} to the caller for further business logic execution
